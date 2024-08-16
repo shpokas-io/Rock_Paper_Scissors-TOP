@@ -1,39 +1,65 @@
-// All the possible choices for the game
-const choices = ["Rock", "Paper", "Scissors"];
+// Function to get the computer's choice
+function getComputerChoice() {
+  const choices = ["rock", "paper", "scissors"];
+  const randomIndex = Math.floor(Math.random() * choices.length);
+  return choices[randomIndex];
+}
 
-// PLayer choice
-let playerChoice = prompt("Enter Rock, Paper, or Scissors:");
+// Function to get the player's choice
+function getPlayerChoice() {
+  let choice = prompt(
+    "Enter your choice (rock, paper, or scissors):"
+  ).toLowerCase();
+  while (!["rock", "paper", "scissors"].includes(choice)) {
+    choice = prompt(
+      "Invalid choice. Please enter rock, paper, or scissors:"
+    ).toLowerCase();
+  }
+  return choice;
+}
 
-// COmp choice
-let computerChoice = choices[Math.floor(Math.random() * choices.length)];
-
-// Compare choices and determine whos the winner
+// Function to play a single round
 function playRound(playerChoice, computerChoice) {
-  // Convert choices to lowercase to make it case-insensitive
-  playerChoice = playerChoice.toLowerCase();
-  computerChoice = computerChoice.toLowerCase();
-
-  // Check for a tie
   if (playerChoice === computerChoice) {
     return "It's a tie!";
-  }
-
-  // CHeck all the possible winning scenarios
-  if (
+  } else if (
     (playerChoice === "rock" && computerChoice === "scissors") ||
     (playerChoice === "scissors" && computerChoice === "paper") ||
     (playerChoice === "paper" && computerChoice === "rock")
   ) {
-    return `You win! ${playerChoice} beats ${computerChoice}.`;
+    playerScore++;
+    return "You win this round!";
   } else {
-    return `You lose! ${computerChoice} beats ${playerChoice}.`; // all other scenarios
+    computerScore++;
+    return "You lose this round!";
   }
 }
 
-// Display the result of the round
-const result = playRound(playerChoice, computerChoice);
-console.log(`Player choice: ${playerChoice}`);
-console.log(`Computer choice: ${computerChoice}`);
-console.log(result);
+// Function to play 5 rounds
+function playGame() {
+  for (let i = 0; i < 5; i++) {
+    const playerChoice = getPlayerChoice();
+    const computerChoice = getComputerChoice();
+    console.log(`Round ${i + 1}:`);
+    console.log(`Player choice: ${playerChoice}`);
+    console.log(`Computer choice: ${computerChoice}`);
+    console.log(playRound(playerChoice, computerChoice));
+    console.log(`Score: Player ${playerScore} - ${computerScore} Computer`);
+    console.log("-----------------------------");
+  }
 
-//5 round logic w for-loop
+  // Determine overall winner
+  if (playerScore > computerScore) {
+    console.log("You win the game!");
+  } else if (playerScore < computerScore) {
+    console.log("You lose the game!");
+  } else {
+    console.log("The game is a tie!");
+  }
+}
+
+//Result finall
+let playerScore = 0;
+let computerScore = 0;
+
+playGame();
