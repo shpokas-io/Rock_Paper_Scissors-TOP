@@ -1,4 +1,7 @@
-//RockPapperScissors script
+//RockPapperScissors scripts Global scope
+
+let humanScore = 0;
+let computerScore = 0;
 
 //Logic for getComputerChoice
 //1) First, need to create random function that displays Rock,Paper,Scissor strings.
@@ -10,3 +13,11 @@ const getComputerChoice = function () {
 };
 
 const computer = getComputerChoice();
+
+// 2) Human logic for choosing getHumanChoice.
+
+const getHumanChoice = function () {
+  let player = prompt(`Choose: rock, paper, scissors`);
+  console.log(`Players choice: ${player}`);
+};
+getHumanChoice();
